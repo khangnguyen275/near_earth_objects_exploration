@@ -41,6 +41,11 @@ class NEODatabase:
         """
         self._neos = neos
         self._approaches = approaches
+        neos_dict = {}
+        count = 0
+        for neo in self._neos:
+            neos_dict[neo.designation] = count
+            neos_dict[neo.name]
 
         # TODO: What additional auxiliary data structures will be useful?
 
