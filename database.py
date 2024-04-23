@@ -37,15 +37,20 @@ class NEODatabase:
         each close approach references the appropriate NEO.
 
         :param neos: A collection of `NearEarthObject`s.
+        
         :param approaches: A collection of `CloseApproach`es.
         """
         self._neos = neos
         self._approaches = approaches
-        neos_dict = {}
-        count = 0
-        for neo in self._neos:
-            neos_dict[neo.designation] = count
-            neos_dict[neo.name]
+        self.neos_dict = {}
+        
+        for count, neo in enumerate(self._neos):
+            self.neos_dict[neo.designation] = self._neos[count]
+            if neo.name:
+                self.neos_dict[neo.name] = self.neos_dict.get(neo.name, []).append(self._neos[count])
+        for count, ca in enumerate(self._approaches):
+            self._approaches[count].neo = self.neos_dict[ca._designation]
+            self.neos_dict[ca._designation].approaches.append(self._approaches[count])
 
         # TODO: What additional auxiliary data structures will be useful?
 

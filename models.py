@@ -77,8 +77,8 @@ class NearEarthObject:
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
-        return f"NearEarthObject(designation={self.designation!r}, name={self.name!r}, " \
-               f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})"
+        return  f"NearEarthObject(designation={self.designation!r}, name={self.name!r}, " \
+                f"diameter={self.diameter:.3f}, hazardous={self.hazardous!r})"
 
 
 class CloseApproach:
@@ -142,5 +142,5 @@ class CloseApproach:
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
-        return f"CloseApproach(time={self.time_str!r}, distance={self.distance:.2f}, " \
-               f"velocity={self.velocity:.2f}, neo={self.neo!r})"
+        return  f"CloseApproach(time={self.time_str!r}, distance={self.distance:.2f}, " \
+                f"velocity={self.velocity:.2f}, neo={self.neo!r})"
