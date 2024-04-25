@@ -35,7 +35,7 @@ class NearEarthObject:
     def __init__(self, pde : str, **info):
         """Create a new `NearEarthObject`.
 
-        :parammeters:
+        :parameters:
             pde: string
                 The primary designation of the NEO
             info: keyword arguments

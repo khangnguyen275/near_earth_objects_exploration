@@ -2,7 +2,7 @@
 
 There are a plethora of ways to combine the arguments to `create_filters`, which
 correspond to different command-line options. This modules tests the options in
-isolation, in pairs, and in more complicated combinations. Althought the tests
+isolation, in pairs, and in more complicated combinations. Although the tests
 are not entirely exhaustive, any implementation that passes all of these tests
 is most likely up to snuff.
 

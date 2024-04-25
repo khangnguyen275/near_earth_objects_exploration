@@ -93,8 +93,8 @@ class NEODatabase:
         # print(self.neos_dict_name)
         # print(name, self.neos_dict_name.get(name, None)) 
         neo = self.neos_dict_name.get(name, None)
-        if neo:
-            neo = neo[0]
+        # if neo:
+        #     neo = neo[0]
         return neo
 
     def query(self, filters=()):
