@@ -60,7 +60,7 @@ class NearEarthObject:
     def fullname(self):
         """Return a representation of the full name of this NEO."""
         if self.name:
-            return self.designation + self.name
+            return self.designation + ' ' + self.name
         else:
             return self.designation
 
@@ -93,8 +93,6 @@ class CloseApproach:
     private attribute, but the referenced NEO is eventually replaced in the
     `NEODatabase` constructor.
     """
-    # TODO: How can you, and should you, change the arguments to this constructor?
-    # If you make changes, be sure to update the comments in this file.
     def __init__(self, time, distance, velocity, _designation: str):
         """Create a new `CloseApproach`.
 
@@ -132,14 +130,11 @@ class CloseApproach:
         formatted string that can be used in human-readable representations and
         in serialization to CSV and JSON files.
         """
-        # TODO: Use self.designation and self.name to build a fullname for this object.
         return datetime_to_str(self.time)
 
     def __str__(self):
         """Return `str(self)`."""
-        # TODO: Use this object's attributes to return a human-readable string representation.
-        # The project instructions include one possibility. Peek at the __repr__
-        # method for examples of advanced string formatting.
+        # Return a human-readable string representation.
         return  f"A CloseApproach by {self._designation} at {self.time_str}, at a distance of {self.distance:.2f} au " \
                 f"and a velocity of {self.velocity:.2f}"
 

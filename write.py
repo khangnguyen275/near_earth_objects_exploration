@@ -12,6 +12,7 @@ You'll edit this file in Part 4.
 """
 import csv
 import json
+from helpers import datetime_to_str
 
 
 def write_to_csv(results, filename):
@@ -28,8 +29,23 @@ def write_to_csv(results, filename):
         'datetime_utc', 'distance_au', 'velocity_km_s',
         'designation', 'name', 'diameter_km', 'potentially_hazardous'
     )
-    # TODO: Write the results to a CSV file, following the specification in the instructions.
-
+    # Write the results to a CSV file, following the specification in the instructions.
+    rows = []
+    for result in results:
+        row = []
+        row.append(datetime_to_str(result.time))
+        row.append(str(result.distance))
+        row.append(result.velocity)
+        row.append(result.neo.designation)
+        row.append(result.neo.name)
+        row.append(result.neo.diameter)
+        row.append(result.neo.hazardous)
+        rows.append(row)
+    
+    with open(filename, 'w') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerow(fieldnames)
+        writer.writerows(rows)
 
 def write_to_json(results, filename):
     """Write an iterable of `CloseApproach` objects to a JSON file.
@@ -42,4 +58,26 @@ def write_to_json(results, filename):
     :param results: An iterable of `CloseApproach` objects.
     :param filename: A Path-like object pointing to where the data should be saved.
     """
-    # TODO: Write the results to a JSON file, following the specification in the instructions.
+    # Write the results to a JSON file, following the specification in the instructions.
+    ca_list = []
+    for result in results:
+        diameter = result.neo.diameter
+        if diameter == float('NaN'):
+            diameter = 'NaN'
+        ca = {}
+        name = result.neo.name
+        if name is None:
+            name == ''
+        ca['datetime_utc'] = datetime_to_str(result.time)
+        ca['distance_au'] = float(result.distance)
+        ca['velocity_km_s'] = float(result.velocity)
+        ca['neo'] = {
+            'designation' : str(result.neo.designation),
+            'name' : name,
+            'diameter_km' : diameter,
+            'potentially_hazardous' : result.neo.hazardous
+        }
+        ca_list.append(ca)
+        print(ca_list)
+    with open(filename, 'w') as json_file:
+        json.dump(ca_list, json_file)
