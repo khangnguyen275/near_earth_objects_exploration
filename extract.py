@@ -31,18 +31,28 @@ def load_neos(neo_csv_path):
         pde_index = header.index('pdes')
         name_index = header.index('name')
         diameter_index = header.index('diameter')
-        hazardous_index = header.index('phd')
+        hazardous_index = header.index('pha')
         NEO_collection = []
         for line in neo_tabular:
-            hazardous_status = line[hazardous_index]
-            if hazardous_status == 'Y':
-                hazardous_status = True
+            
+            hazardous = line[hazardous_index]
+            if hazardous == 'Y':
+                hazardous = True
             else:
-                hazardous_status = False
+                hazardous = False
+                
+            diameter = line[diameter_index]
+            if len(diameter) == 0:
+                diameter = 'nan'  
+                
+            name = line[name_index]
+            if len(name) == 0:
+                name = None
+            # print(name)    
             NEO_collection.append( NearEarthObject (pde = line[pde_index], 
-                                                    name = line[name_index],
-                                                    diameter = line[diameter_index], 
-                                                    hazardous = hazardous_status))
+                                                    name = name,
+                                                    diameter = diameter, 
+                                                    hazardous = hazardous))
     return NEO_collection
 
 
@@ -62,8 +72,17 @@ def load_approaches(cad_json_path):
     designation_index = fields.index('des')
     CA_collection = []
     for ca in ca_dict['data']:
+            
+        distance = ca[distance_index]
+        if len(distance) == 0:
+            distance = 'nan'  
+            
+        velocity = ca[velocity_index]
+        if len(velocity) == 0:
+            velocity == 'nan'
+
         CA_collection.append( CloseApproach(time = ca[time_index], 
-                                            distance = ca[distance_index], 
-                                            velocity = ca[velocity_index],
+                                            distance = distance, 
+                                            velocity = velocity,
                                             _designation = ca[designation_index]))
     return CA_collection
