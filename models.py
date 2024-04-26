@@ -130,8 +130,7 @@ class CloseApproach:
 
     @property
     def time_str(self):
-        """Return a formatted representation of this `CloseApproach`'s approach
-        time.
+        """Return a formatted repr of this `CloseApproach`'s approach time.
 
         The value in `self.time` should be a Python `datetime` object. While a
         `datetime` object has a string representation, the default

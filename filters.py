@@ -1,5 +1,4 @@
-"""Provide filters for querying close approaches and limit the generated
-results.
+"""Provide filters for querying close approaches and limit the yielded results.
 
 The `create_filters` function produces a collection of objects that is used by
 the `query` method to generate a stream of `CloseApproach` objects that match
@@ -42,8 +41,7 @@ class AttributeFilter:
     """
 
     def __init__(self, op, value):
-        """Construct a new `AttributeFilter` from an binary predicate and a
-        reference value.
+        """Create a new filter from an binary predicate and a reference value.
 
         The reference value will be supplied as the second (right-hand side)
         argument to the operator function. For example, an `AttributeFilter`
@@ -74,38 +72,124 @@ class AttributeFilter:
         raise UnsupportedCriterionError
 
     def __repr__(self):
+        """
+        Return a human-readable representation.
+
+        :return: The `__repr__` method is returning a string representation of
+        the object. It includes the class name, the operator name (retrieved
+        from the `op` attribute), and the value of the object.
+        """
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, \
             value={self.value})"
 
 
 class DateFilter(AttributeFilter):
+    """
+    A subclass of `AttributeFilter` that realizes the get method for dates.
+
+    The `DateFilter` class is a subclass of `AttributeFilter` that provides a
+    method to extract the date from a given time attribute.
+    """
+
     @classmethod
     def get(cls, approach):
+        """
+        Return the date attribute of the provided `approach` object.
+
+        :param cls: The `cls` parameter in a class method refers to the class
+        itself.
+        :param approach: the close approach.
+        :return: The `date` attribute of the `approach` object is being
+        returned.
+        """
         return approach.time.date()
 
 
 class DistanceFilter(AttributeFilter):
+    """
+    A subclass of `AttributeFilter` that realizes the get method for distance.
+
+    The `DistanceFilter` class is a subclass of `AttributeFilter` that provides
+    a method to extract the distance from a given approach.
+    """
+
     @classmethod
     def get(cls, approach):
+        """
+        Return the distance attribute of the provided `approach` object.
+
+        :param cls: The `cls` parameter in a class method refers to the class
+        itself.
+        :param approach: the close approach.
+        :return: The `distance` attribute of the `approach` object is being
+        returned.
+        """
         return approach.distance
 
 
 class VelocityFilter(AttributeFilter):
+    """
+    A subclass of `AttributeFilter` that realizes the get method for velocity.
+
+    The `VelocityFilter` class is a subclass of `AttributeFilter` that provides
+    a method to extract the velocity from a given approach.
+    """
+
     @classmethod
     def get(cls, approach):
+        """
+        Return the velocity attribute of the `approach` object.
+
+        :param cls: In the provided code snippet, the `cls` parameter is used
+        as a reference to the class object within the method.
+        :param approach: the close approach.
+        :return: The `velocity` attribute of the `approach` object is being
+        returned.
+        """
         return approach.velocity
 
 
 class DiameterFilter(AttributeFilter):
+    """
+    A subclass of `AttributeFilter` that realizes the get method for diameter.
+
+    The `HazardousFilter` class is a subclass of `AttributeFilter` that
+    provides a method to extract the diameter from a given approach's neo.
+    """
+
     @classmethod
     def get(cls, approach):
+        """
+        Return the diameter attribute of the provided `approach` object's neo.
+
+        :param cls: The `cls` parameter in a class method refers to the class
+        itself.
+        :param approach: the close approach.
+        :return: The `diameter` attribute of the `approach` object's neo is
+        being returned.
+        """
         return approach.neo.diameter
 
 
 class HazardousFilter(AttributeFilter):
+    """
+    A subclass of `AttributeFilter` that realizes the get method for hazardous.
+
+    The `HazardousFilter` class is a subclass of `AttributeFilter` that
+    provides a method to extract the hazardousness from a given approach's neo.
+    """
+
     @classmethod
     def get(cls, approach):
-        # print(approach.neo.hazardous)
+        """
+        Return the hazardous attribute of the provided `approach` object's neo.
+
+        :param cls: The `cls` parameter in a class method refers to the class
+        itself.
+        :param approach: the close approach.
+        :return: The `hazardous` attribute of the `approach` object's neo is
+        being returned.
+        """
         return approach.neo.hazardous
 
 
